@@ -6,6 +6,15 @@ Sync playback between multiple media elements with high accuracy.
 
 Transport latency and playback state is accounted for, ensuring that media plays simulatenously even across laggy networks with many viewers.
 
+## Install
+```
+npm install --save media-time-sync
+```
+or, without Browserify:
+```html
+<script src="dist/media-time-sync.js"/>
+```
+
 ## Example
 Here is an example of syncing two media elements on the same page:
 
