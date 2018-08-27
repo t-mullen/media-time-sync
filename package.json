@@ -1,6 +1,6 @@
 {
   "name": "media-time-sync",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sync the play times of media elements over a network.",
   "main": "src/index.js",
   "directories": {
