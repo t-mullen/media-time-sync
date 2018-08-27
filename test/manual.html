@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <style>
+      video {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="one" src="./test.mp4" loop controls></video>
+    <button id="playone">Play</button>
+    <button id="pauseone">Pause</button>
+    <button id="seekone">Seek</button>
+    <br>
+    <video id="two" src="./test.mp4" loop controls></video>
+    <button id="playtwo">Play</button>
+    <button id="pausetwo">Pause</button>
+    <button id="seektwo">Seek</button>
+    <video id="three" src="./test.mp4" loop controls></video>
+    <button id="playthree">Play</button>
+    <button id="pausethree">Pause</button>
+    <button id="seekthree">Seek</button>
+  </body>
+  <script src="./../dist/media-time-sync.js"></script>
+  <script>
+    var peers = [
+      new MediaTimeSync(0, document.querySelector('#one')),
+      new MediaTimeSync(1, document.querySelector('#two')),
+      new MediaTimeSync(2, document.querySelector('#three'))
+    ]
+
+    peers.forEach((peer, id) => {
+      for (var i=0; i<peers.length; i++) {
+        if (id === i) continue;
+        peer.addPeer(i)
+        peer.messageQueue = []
+      }
+    })
+
+    peers.forEach((peer) => {
+      peer.on('message', (id, msg) => {
+        peers[id].messageQueue.push(msg)
+        setTimeout(() => {
+          peers[id].receive(id, peers[id].messageQueue.shift())
+        }, Math.random()*6000)
+      })
+    })
+
+    document.querySelector('#playone').addEventListener('click', () => {
+      peers[0].play()
+    })
+    document.querySelector('#pauseone').addEventListener('click', () => {
+      peers[0].pause()
+    })
+    document.querySelector('#seekone').addEventListener('click', () => {
+      peers[0].seek(peers[0]._element.duration * Math.random())
+    })
+    document.querySelector('#playtwo').addEventListener('click', () => {
+      peers[1].play()
+    })
+    document.querySelector('#pausetwo').addEventListener('click', () => {
+      peers[1].pause()
+    })
+    document.querySelector('#seektwo').addEventListener('click', () => {
+      peers[1].seek(peers[1]._element.duration * Math.random())
+    })
+    document.querySelector('#playthree').addEventListener('click', () => {
+      peers[2].play()
+    })
+    document.querySelector('#pausethree').addEventListener('click', () => {
+      peers[2].pause()
+    })
+    document.querySelector('#seekthree').addEventListener('click', () => {
+      peers[2].seek(peers[2]._element.duration * Math.random())
+    })
+  </script>
+</html>

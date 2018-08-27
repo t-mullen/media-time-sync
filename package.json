@@ -1,0 +1,25 @@
+{
+  "name": "media-time-sync",
+  "version": "1.0.0",
+  "description": "Sync the play times of media elements over a network.",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard --fix src/** && tape test/*.js",
+    "build": "browserify src/index.js -s MediaTimeSync -o dist/media-time-sync.js",
+    "test-browser": "zuul --local -- test/*.js"
+  },
+  "author": "Thomas Mullen",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^8.6.0",
+    "tape": "^4.6.3"
+  },
+  "dependencies": {
+    "inherits": "^2.0.3",
+    "nanobus": "^4.3.3",
+    "timesync": "^1.0.3"
+  }
+}
